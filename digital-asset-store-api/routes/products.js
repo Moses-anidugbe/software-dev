@@ -47,13 +47,20 @@ router.post(
     const { id } = req.params;
     // Process the request
     try {
-      const result = await client.query(
-        "UPDATE products SET inventory = inventory - 1 WHERE id = $1 RETURNING *",
+      const product = await client.query(
+        "SELECT id FROM products WHERE id = $1",
         [id],
       );
-      if (result.rows.length === 0) {
+
+      if (product.rows.length === 0) {
         return res.status(404).json({ message: "Product not found." });
       }
+
+      const result = await client.query(
+        "INSERT INTO purchases (buyer_id, product_id) VALUES ($1, $2) RETURNING *",
+        [req.user.id, id],
+      );
+
       res.json({ message: `Product with ID ${id} purchased successfully.` });
     } catch (error) {
       console.error("Error occurred while purchasing product:", error);
