@@ -144,116 +144,79 @@ The foreign-key constraints ensure that purchases cannot reference users or prod
 
 ## API Endpoints
 
+All endpoints are mounted under `/api`.
+
 ### Authentication
 
-| Method | Endpoint         | Description                           | Access |
-| ------ | ---------------- | ------------------------------------- | ------ |
-| POST   | `/auth/register` | Register a new user                   | Public |
-| POST   | `/auth/login`    | Authenticate a user and receive a JWT | Public |
+| Method | Endpoint             | Description                            | Access |
+| ------ | -------------------- | -------------------------------------- | ------ |
+| POST   | `/api/auth/signup`   | Register a new user (`buyer`/`seller`) | Public |
+| POST   | `/api/auth/register` | Alias for user registration            | Public |
+| POST   | `/api/auth/login`    | Authenticate a user and receive a JWT  | Public |
 
 ### Products
 
-| Method | Endpoint        | Description            | Access |
-| ------ | --------------- | ---------------------- | ------ |
-| GET    | `/products`     | Get available products | Public |
-| GET    | `/products/:id` | Get a specific product | Public |
-| POST   | `/products`     | Create a product       | Seller |
-| PATCH  | `/products/:id` | Update a product       | Seller |
-| DELETE | `/products/:id` | Delete a product       | Seller |
+| Method | Endpoint                     | Description                      | Access |
+| ------ | ---------------------------- | -------------------------------- | ------ |
+| GET    | `/api/products`              | List available products (public) | Public |
+| GET    | `/api/products/:id`          | Get product details by ID        | Public |
+| POST   | `/api/products`              | Create a digital product listing | Seller |
+| POST   | `/api/products/:id/buy`      | Purchase a product               | Buyer  |
+| POST   | `/api/products/:id/purchase` | Purchase a product (alias)       | Buyer  |
 
 ### Purchases
 
-| Method | Endpoint                 | Description        | Access |
-| ------ | ------------------------ | ------------------ | ------ |
-| POST   | `/products/:id/purchase` | Purchase a product | Buyer  |
-
-## Example Purchase Request
-
-An authenticated buyer can purchase a product by sending:
-
-```http
-POST /products/7/purchase
-Authorization: Bearer <token>
-```
-
-The `7` represents the product ID.
-
-The API gets the buyer's ID from the authenticated request:
-
-```js
-req.user.id;
-```
-
-It then creates a purchase:
-
-```sql
-INSERT INTO purchases (buyer_id, product_id)
-VALUES ($1, $2)
-RETURNING *;
-```
-
-This creates a relationship between the buyer and the product:
-
-```text
-Buyer
-  │
-  └── Purchase
-         │
-         └── Product
-```
+| Method | Endpoint             | Description                          | Access |
+| ------ | -------------------- | ------------------------------------ | ------ |
+| GET    | `/api/purchases`     | Get authenticated buyer purchase log | Buyer  |
+| POST   | `/api/purchases/:id` | Purchase product by ID               | Buyer  |
 
 ## Project Structure
 
 ```text
 digital-asset-store-api/
+├── src/
+│   ├── config/
+│   │   ├── env.js                # Environment variables & configuration
+│   │   └── db.js                 # PostgreSQL connection pool (pg.Pool)
+│   │
+│   ├── controllers/              # HTTP request/response controllers
+│   │   ├── auth.controller.js
+│   │   ├── products.controller.js
+│   │   └── purchases.controller.js
+│   │
+│   ├── services/                 # Business logic and database operations
+│   │   ├── auth.service.js
+│   │   ├── products.service.js
+│   │   └── purchases.service.js
+│   │
+│   ├── middleware/               # Express middleware
+│   │   ├── authenticateToken.js  # JWT authentication
+│   │   ├── requireRole.js        # Role-based access control (RBAC)
+│   │   ├── validate.js           # Generic validator runner
+│   │   └── errorHandler.js       # Centralized error handler
+│   │
+│   ├── validators/               # Input validation logic
+│   │   ├── auth.validator.js
+│   │   └── product.validator.js
+│   │
+│   ├── routes/                   # Route definitions
+│   │   ├── index.js              # Master API router (/api)
+│   │   ├── auth.routes.js
+│   │   ├── products.routes.js
+│   │   └── purchases.routes.js
+│   │
+│   ├── utils/
+│   │   └── AppError.js           # Operational error class
+│   │
+│   ├── app.js                    # Express app configuration & middleware
+│   └── server.js                 # HTTP server bootstrap & DB connection
 │
-├── db/
-│
-├── middleware/
-│
-├── routes/
-│
-├── utils/
-│
-├── index.js
+├── .env.example
 ├── schema.sql
 ├── package.json
-└── package-lock.json
+└── README.md
 ```
-
-### `db/`
-
-Contains the database-related code used by the application to connect to and interact with PostgreSQL.
-
-### `middleware/`
-
-Contains Express middleware used by the API, including authentication and authorization logic.
-
-### `routes/`
-
-Contains the API route definitions for the different resources and operations.
-
-### `utils/`
-
-Contains reusable utility functions used throughout the application.
-
-### `index.js`
-
-The main entry point of the application.
-
-It initializes the Express application, configures the server, and mounts the API routes.
-
-### `schema.sql`
-
-Contains the PostgreSQL database schema used to create the application's tables and relationships.
-
-### `package.json`
-
-Contains the project's dependencies, scripts, and Node.js project configuration.
-
-### `package-lock.json`
-
-Locks the exact versions of the project's installed dependencies.
 
 ## Getting Started
 
