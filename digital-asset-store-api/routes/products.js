@@ -5,6 +5,12 @@ const authenticateToken = require("../middleware/authenticateToken");
 const requireRole = require("../middleware/requireRole");
 
 router.post("/", authenticateToken, requireRole("seller"), async (req, res) => {
+  //Validate request body
+  const validation = validateProduct(req.body);
+  if (!validation.isValid) {
+    return res.status(400).json({ message: validation.message });
+  }
+
   const { title, price, download_url } = req.body;
 
   // Process the request (e.g., save to database)
@@ -14,14 +20,9 @@ router.post("/", authenticateToken, requireRole("seller"), async (req, res) => {
       [title, price, download_url, req.user.id],
     );
 
-    const createdProduct = result.rows[0];
-
     res.status(201).json({
       message: "Product created successfully.",
-      title: createdProduct.title,
-      price: createdProduct.price,
-      download_url: createdProduct.download_url,
-      seller_id: createdProduct.seller_id,
+      product: result.rows[0],
     });
   } catch (error) {
     console.error("Error occurred while creating product:", error);
@@ -31,8 +32,10 @@ router.post("/", authenticateToken, requireRole("seller"), async (req, res) => {
 
 router.get("/", async (req, res) => {
   try {
-    const result = await client.query("SELECT * FROM products");
-    res.json(result.rows);
+    const result = await client.query(
+      "SELECT id, seller_id, title, price FROM products",
+    );
+    res.status(200).json(result.rows);
   } catch (error) {
     console.error("Error occurred while fetching products:", error);
     return res.status(500).json({ message: "Internal server error." });
@@ -61,7 +64,9 @@ router.post(
         [req.user.id, id],
       );
 
-      res.json({ message: `Product with ID ${id} purchased successfully.` });
+      res
+        .status(200)
+        .json({ message: `Product with ID ${id} purchased successfully.` });
     } catch (error) {
       console.error("Error occurred while purchasing product:", error);
       return res.status(500).json({ message: "Internal server error." });

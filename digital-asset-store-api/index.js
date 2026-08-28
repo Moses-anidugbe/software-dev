@@ -18,8 +18,8 @@ async function startServer() {
     await client.connect();
     console.log("Connected to PostgreSQL.");
 
-    app.listen(process.env.PORT, () => {
-      console.log(`Server running on port ${process.env.PORT}`);
+    app.listen(process.env.PORT || 3000, () => {
+      console.log(`Server running on port ${process.env.PORT || 3000}`);
     });
   } catch (err) {
     console.error("Failed to connect to database:", err);

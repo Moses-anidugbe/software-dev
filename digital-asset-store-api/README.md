@@ -167,8 +167,6 @@ The foreign-key constraints ensure that purchases cannot reference users or prod
 | ------ | ------------------------ | ------------------ | ------ |
 | POST   | `/products/:id/purchase` | Purchase a product | Buyer  |
 
-> The exact routes should be checked against the route files if they are changed in the future.
-
 ## Example Purchase Request
 
 An authenticated buyer can purchase a product by sending:
