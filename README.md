@@ -1,72 +1,134 @@
-# Backend Projects
+# Software Development Projects
 
-A collection of backend projects built with Node.js, Express, PostgreSQL, and other backend technologies.
+A collection of software development projects built while learning and applying programming and software engineering concepts.
 
-This repository contains projects created to practice and improve skills in REST API development, database integration, server-side programming, and backend architecture.
+This repository contains both **backend** and **frontend** projects, with a focus on building practical applications and developing skills through hands-on projects.
 
----
+## Repository Structure
 
-# Projects
+```text
+├── Backend/
+│   ├── sneaker-store-api/
+│   ├── library-api/
+│   ├── task-manager-api/
+│   ├── expense-tracker-api/
+│   └── ...
+│
+├── Frontend/
+│   ├── digital-store-frontend/
+│   └── ...
+│
+└── README.md
+```
 
-## 👟 Sneaker Store API
+## Backend
+
+The backend projects are primarily built with **Node.js, Express, and PostgreSQL**.
+
+They cover concepts such as:
+
+- REST API development
+- CRUD operations
+- PostgreSQL and SQL
+- Database design and relationships
+- Authentication and authorization
+- Request validation
+- Middleware
+- Error handling
+- Pagination, filtering, and sorting
+- Financial data processing
+- Environment variables
+- API security
+
+### Projects
+
+#### Sneaker Store API
 
 A RESTful API for managing sneaker products.
 
-The project focuses on building a backend service that connects to a PostgreSQL database and handles CRUD operations for sneaker data.
+**Technologies:** Node.js, Express.js, PostgreSQL, pg
 
-### Concepts Practiced
-
-- REST API development
-- Node.js server-side programming
-- PostgreSQL database integration
-- SQL queries
-- Parameterized queries
-- Handling HTTP requests and responses
-
-### Technologies
-
-- Node.js
-- PostgreSQL
-- pg
-
----
-
-## 📚 Library API
+#### Library API
 
 A RESTful API for managing a library system.
 
-The project focuses on building a structured Express application with database integration, validation, and middleware.
+**Technologies:** Node.js, Express.js, PostgreSQL, pg, dotenv
 
-### Concepts Practiced
+#### Task Manager API
 
-- Express.js routing
-- CRUD operations
-- PostgreSQL database design
-- Request validation
-- Middleware
-- Environment variables
-- Modular project structure
-- Partial updates using PATCH
+A task management API with user authentication and protected resources.
 
-### Technologies
+**Technologies:** Node.js, Express.js, PostgreSQL, JWT, bcrypt
+
+#### Expense Tracker API
+
+A multi-user expense tracking API with transaction filtering, pagination, sorting, and financial reporting.
+
+**Technologies:** Node.js, Express.js, PostgreSQL, JWT, bcrypt
+
+#### Digital Asset Store API
+
+A backend API for a digital marketplace, including users, products, and purchases.
+
+**Technologies:** Node.js, Express.js, PostgreSQL
+
+## Frontend
+
+The frontend section contains projects built while learning frontend development and React.
+
+Current technologies include:
+
+- HTML
+- CSS
+- JavaScript
+- React
+- Vite
+
+### Projects
+
+#### Digital Store Frontend
+
+The frontend application for the Digital Asset Store project.
+
+**Technologies:** React, Vite, JavaScript
+
+## Purpose
+
+This repository serves as a record of my progress in software development.
+
+Projects are added as I learn new technologies and apply them to practical problems.
+
+The goal is not simply to collect projects, but to progressively build a deeper understanding of how software is designed, developed, and connected together.
+
+## Technologies
+
+### Backend
 
 - Node.js
 - Express.js
 - PostgreSQL
-- pg
-- dotenv
+- SQL
+- JWT
+- bcrypt
+- REST APIs
 
----
+### Frontend
 
-# Purpose
+- HTML
+- CSS
+- JavaScript
+- React
+- Vite
 
-This repository serves as a collection of backend projects built while learning and applying backend development concepts.
+## Future Learning
 
-Future projects will explore more advanced topics such as:
+This repository will continue to grow as I explore topics such as:
 
-- Authentication
-- Authorization
-- API security
-- Advanced database relationships
+- TypeScript
+- Docker
+- ORMs
+- Testing
 - Deployment
-- More complex backend architectures
+- CI/CD
+- More advanced system architecture
+- Full-stack application development
