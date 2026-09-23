@@ -1,9 +1,18 @@
 function ProductCard(props) {
   return (
-    <div>
-      <h2>{props.name}</h2>
-      <p>${props.price.toFixed(2)}</p>
-      <button onClick={props.onAddToCart}>Buy</button>
+    <div className="product-card">
+      <h3>{props.name}</h3>
+      <p className="product-price">${props.price.toFixed(2)}</p>
+      <button
+        className="buy-button"
+        onClick={() =>
+          props.alreadyInCart
+            ? props.onRemoveFromCart(props.product)
+            : props.onAddToCart(props.product)
+        }
+      >
+        {props.alreadyInCart ? "Remove from cart" : "Add to cart"}
+      </button>
     </div>
   );
 }

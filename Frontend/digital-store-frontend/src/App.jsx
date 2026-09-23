@@ -1,25 +1,19 @@
 import { useState } from "react";
-import Hero from "./Hero";
-import ProductsList from "./ProductsList";
-import NavBar from "./NavBar";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Store from "./Store";
+import Cart from "./Cart";
 
 function App() {
-  const products = [
-    { name: "React Dashboard Template", price: 15 },
-    { name: "Vue.js Admin Panel", price: 20 },
-    { name: "Angular Material Design", price: 25 },
-    { name: "Node.js Backend Boilerplate", price: 30 },
-  ];
-  const [cartCount, setCartCount] = useState(0);
+  const [cart, setCart] = useState([]);
   return (
-    <div>
-      <NavBar cartCount={cartCount} />
-      <Hero />
-      <ProductsList
-        products={products}
-        onAddToCart={() => setCartCount((prev) => prev + 1)}
-      />
-    </div>
+    <BrowserRouter>
+      <div>
+        <Routes>
+          <Route path="/" element={<Store cart={cart} setCart={setCart} />} />
+          <Route path="/cart" element={<Cart cart={cart} />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 
