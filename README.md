@@ -1,5 +1,3 @@
-Absolutely. I’d make it project-focused now, with the Digital Asset Store presented as the full-stack project it actually is.
-
 # Software Development Projects
 
 A collection of software development projects built while learning and applying programming and software engineering concepts.
@@ -205,5 +203,3 @@ Areas I plan to explore include:
 - More advanced system architecture
 - Full-stack application development
 - Game development
-
-This version also avoids locking the repo into a **“backend vs frontend”** identity. As you add more full-stack projects later, the structure still makes sense.
