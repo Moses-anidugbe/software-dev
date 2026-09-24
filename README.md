@@ -1,104 +1,159 @@
+Absolutely. I’d make it project-focused now, with the Digital Asset Store presented as the full-stack project it actually is.
+
 # Software Development Projects
 
 A collection of software development projects built while learning and applying programming and software engineering concepts.
 
-This repository contains both **backend** and **frontend** projects, with a focus on building practical applications and developing skills through hands-on projects.
+The repository is organized by **project**, with each project containing the technologies and applications that belong to it. Most projects are built around practical problems and are used to develop my understanding through hands-on work.
 
-## Repository Structure
+## Projects
+
+### Digital Asset Store
+
+A full-stack digital marketplace where sellers can list digital products and buyers can browse and purchase them.
+
+The project is split into a backend API and a React frontend.
+
+**Technologies:**
+
+- Node.js
+- Express.js
+- PostgreSQL
+- React
+- Vite
+- JavaScript
+- JWT
+- bcrypt
+
+**Structure:**
 
 ```text
-├── Backend/
-│   ├── sneaker-store-api/
-│   ├── library-api/
-│   ├── task-manager-api/
-│   ├── expense-tracker-api/
-│   └── ...
-│
-├── Frontend/
-│   ├── digital-store-frontend/
-│   └── ...
-│
-└── README.md
+Digital-asset-store/
+├── digital-asset-store-api/
+└── digital-store-frontend/
 ```
 
-## Backend
-
-The backend projects are primarily built with **Node.js, Express, and PostgreSQL**.
-
-They cover concepts such as:
+The project covers concepts such as:
 
 - REST API development
-- CRUD operations
-- PostgreSQL and SQL
 - Database design and relationships
-- Authentication and authorization
-- Request validation
+- User authentication
+- Authorization and role-based access control
+- Product management
+- Purchases
+- React components and state
+- Frontend-backend communication
+
+---
+
+### Expense Tracker
+
+A multi-user expense tracking API for recording and managing financial transactions.
+
+**Technologies:**
+
+- Node.js
+- Express.js
+- PostgreSQL
+- JWT
+- bcrypt
+
+**Concepts covered:**
+
+- Authentication
+- CRUD operations
+- Filtering
+- Sorting
+- Pagination
+- SQL aggregation
+- Financial reporting
+- REST APIs
+
+---
+
+### Library App
+
+A RESTful API for managing books in a library system.
+
+**Technologies:**
+
+- Node.js
+- Express.js
+- PostgreSQL
+- pg
+- dotenv
+
+**Concepts covered:**
+
+- CRUD operations
+- PostgreSQL
+- Database relationships
+- API routes
 - Middleware
+- Request validation
 - Error handling
-- Pagination, filtering, and sorting
-- Financial data processing
-- Environment variables
-- API security
 
-### Projects
+---
 
-#### Sneaker Store API
-
-A RESTful API for managing sneaker products.
-
-**Technologies:** Node.js, Express.js, PostgreSQL, pg
-
-#### Library API
-
-A RESTful API for managing a library system.
-
-**Technologies:** Node.js, Express.js, PostgreSQL, pg, dotenv
-
-#### Task Manager API
+### Task Manager App
 
 A task management API with user authentication and protected resources.
 
-**Technologies:** Node.js, Express.js, PostgreSQL, JWT, bcrypt
+**Technologies:**
 
-#### Expense Tracker API
+- Node.js
+- Express.js
+- PostgreSQL
+- JWT
+- bcrypt
 
-A multi-user expense tracking API with transaction filtering, pagination, sorting, and financial reporting.
+**Concepts covered:**
 
-**Technologies:** Node.js, Express.js, PostgreSQL, JWT, bcrypt
+- User authentication
+- Password hashing
+- JWT-based authorization
+- Protected routes
+- Middleware
+- User-specific resources
+- CRUD operations
 
-#### Digital Asset Store API
+---
 
-A backend API for a digital marketplace, including users, products, and purchases.
+### Timestamp Microservice App
 
-**Technologies:** Node.js, Express.js, PostgreSQL
+A microservice that processes dates and returns timestamp information through an API.
 
-## Frontend
+**Technologies:**
 
-The frontend section contains projects built while learning frontend development and React.
-
-Current technologies include:
-
-- HTML
-- CSS
 - JavaScript
-- React
-- Vite
+- Node.js
+- Express.js
 
-### Projects
+**Concepts covered:**
 
-#### Digital Store Frontend
+- REST APIs
+- Route parameters
+- Date and time handling
+- JSON responses
 
-The frontend application for the Digital Asset Store project.
+---
 
-**Technologies:** React, Vite, JavaScript
+### Weather Service App
 
-## Purpose
+A weather-related API project built while learning backend development and API design.
 
-This repository serves as a record of my progress in software development.
+**Technologies:**
 
-Projects are added as I learn new technologies and apply them to practical problems.
+- JavaScript
+- Node.js
+- Express.js
 
-The goal is not simply to collect projects, but to progressively build a deeper understanding of how software is designed, developed, and connected together.
+**Concepts covered:**
+
+- API routes
+- JSON responses
+- Request handling
+- Working with API data
 
 ## Technologies
 
@@ -120,15 +175,35 @@ The goal is not simply to collect projects, but to progressively build a deeper 
 - React
 - Vite
 
+### Tools & Practices
+
+- Git
+- GitHub
+- VS Code
+- Postman
+- Environment variables
+- API testing
+
+## Purpose
+
+This repository serves as a record of my progress in software development.
+
+Rather than building projects only by following tutorials, I use these projects to learn concepts, solve problems, and gradually develop the ability to build complete applications.
+
+As I learn new technologies, existing projects may be expanded or new projects may be added.
+
 ## Future Learning
 
-This repository will continue to grow as I explore topics such as:
+Areas I plan to explore include:
 
 - TypeScript
 - Docker
 - ORMs
-- Testing
+- Automated testing
 - Deployment
 - CI/CD
 - More advanced system architecture
 - Full-stack application development
+- Game development
+
+This version also avoids locking the repo into a **“backend vs frontend”** identity. As you add more full-stack projects later, the structure still makes sense.
