@@ -2,13 +2,14 @@ function Cart(props) {
   const total = props.cart.reduce((sum, item) => {
     return sum + item.price;
   }, 0);
+
   return (
     <div>
       <h2>Your Cart</h2>
 
       {props.cart.map((item) => (
-        <p key={item.name}>
-          {item.name} - ${item.price.toFixed(2)}
+        <p key={item.id}>
+          {item.title} - ${item.price.toFixed(2)}
         </p>
       ))}
 

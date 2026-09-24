@@ -7,14 +7,14 @@ function ProductsList(props) {
       <div className="products-list">
         {props.products.map((product) => {
           const alreadyInCart = props.cart.some(
-            (item) => item.name === product.name,
+            (item) => item.id === product.id,
           );
-          console.log(product.name, alreadyInCart);
 
           return (
             <ProductCard
-              key={product.name}
-              name={product.name}
+              key={product.id}
+              id={product.id}
+              title={product.title}
               price={product.price}
               onAddToCart={() => props.onAddToCart(product)}
               onRemoveFromCart={() => props.onRemoveFromCart(product)}
