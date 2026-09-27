@@ -54,7 +54,9 @@ function Nav() {
                 <button onClick={logout}>Log Out</button>
               </>
             ) : (
-              <button onClick={login}>Sign In / Sign Up</button>
+              <button onClick={() => navigate("/login")}>
+                Sign In / Sign Up
+              </button>
             )}
           </div>
         )}
