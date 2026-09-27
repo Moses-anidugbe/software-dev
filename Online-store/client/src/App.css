@@ -1,0 +1,93 @@
+nav {
+  background-color: #172033;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+nav a {
+  color: #ffffff;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+nav button {
+  background-color: transparent;
+  color: #ffffff;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+nav input[type="search"]:focus {
+  outline: none;
+}
+
+.account-menu {
+  position: relative;
+}
+
+.account-dropdown {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  background-color: #ffffff;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.account-dropdown button {
+  color: #000000;
+}
+
+.help-menu {
+  position: relative;
+}
+
+.help-dropdown {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  background-color: #ffffff;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.product-section {
+  padding: 20px;
+  background-color: #4673ae79;
+}
+
+.product-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.products-list {
+  display: flex;
+  overflow-x: auto;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+}
+
+.product-card {
+  width: 250px;
+  height: 300px;
+  flex-shrink: 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+}
