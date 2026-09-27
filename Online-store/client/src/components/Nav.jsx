@@ -1,11 +1,32 @@
-import { useState } from "react";
-import { useContext } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext.jsx";
 
 function Nav() {
   const [isAccountOpen, setIsAccountOpen] = useState(false);
   const [isHelpOpen, setIsHelpOpen] = useState(false);
+  const navigate = useNavigate();
   const { isAuthenticated, login, logout } = useContext(AuthContext);
+  const dropDownMenuRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        dropDownMenuRef.current &&
+        !dropDownMenuRef.current.contains(event.target)
+      ) {
+        setIsAccountOpen(false);
+        setIsHelpOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <nav>
       <a href="/">SEWSS VINTAGE</a>
@@ -19,17 +40,16 @@ function Nav() {
           type="button"
           onClick={() => {
             setIsAccountOpen(!isAccountOpen);
-            setIsHelpOpen(false);
           }}
         >
           Account ▾
         </button>
 
         {isAccountOpen && (
-          <div className="account-dropdown">
+          <div className="account-dropdown" ref={dropDownMenuRef}>
             {isAuthenticated ? (
               <>
-                <button>My Account</button>
+                <button onClick={() => navigate("/account")}>My Account</button>
                 <button>Orders</button>
                 <button onClick={logout}>Log Out</button>
               </>
@@ -39,18 +59,18 @@ function Nav() {
           </div>
         )}
       </div>
+
       <div className="help-menu">
         <button
           type="button"
           onClick={() => {
             setIsHelpOpen(!isHelpOpen);
-            setIsAccountOpen(false);
           }}
         >
           Help ▾
         </button>
         {isHelpOpen && (
-          <div className="help-dropdown">
+          <div className="help-dropdown" ref={dropDownMenuRef}>
             <button>FAQ</button>
             <button>Contact Us</button>
           </div>
