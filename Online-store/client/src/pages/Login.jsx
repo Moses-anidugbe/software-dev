@@ -1,16 +1,42 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import AuthContext from "../context/AuthContext";
 
 function Login() {
   const [pageState, setPageState] = useState("login"); // "login" or "signup"
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    console.log(username);
-    console.log(password);
-    console.log(email);
+    try {
+      const response = await fetch("http://localhost:3000/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password,
+        }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        console.log(data);
+        return;
+      }
+      localStorage.setItem("token", data.token);
+      login();
+      const token = localStorage.getItem("token");
+      navigate("/");
+      // console.log(token);
+    } catch (error) {
+      console.error("Error submitting the form:", error);
+    }
   }
   return (
     <div className="login-container">
