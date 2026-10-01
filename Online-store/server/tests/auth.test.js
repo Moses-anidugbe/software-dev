@@ -76,6 +76,12 @@ test("registers a user and stores a bcrypt password hash", async () => {
   );
 
   expect(response.status).toBe(201);
+  const tokenPayload = jwt.verify(response.body.token, process.env.JWT_SECRET);
+
+  expect(response.body.user.username).toBe(validUser.username);
+  expect(tokenPayload).toEqual(
+    expect.objectContaining({ id: expect.any(Number), role: "CUSTOMER" }),
+  );
   expect(result.rows).toHaveLength(1);
   expect(result.rows[0].password_hash).not.toBe(validUser.password);
   await expect(

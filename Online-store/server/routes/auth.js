@@ -5,6 +5,16 @@ import pool from "../db.js";
 
 const router = express.Router();
 
+const createToken = (user) =>
+  jwt.sign(
+    {
+      id: user.id,
+      role: user.role,
+    },
+    process.env.JWT_SECRET,
+    { expiresIn: "1h" },
+  );
+
 router.post("/register", async (req, res) => {
   const { username, email, password } = req.body;
   if (!username || !email || !password) {
@@ -52,10 +62,12 @@ router.post("/register", async (req, res) => {
      RETURNING id, username, email, role`,
       [username, email, passwordHash],
     );
-    // For now, we'll just return a success message
+    const user = result.rows[0];
+
     return res.status(201).json({
       message: "User registered successfully",
-      user: result.rows[0],
+      token: createToken(user),
+      user,
     });
   } catch (error) {
     if (error.code === "23505") {
@@ -100,19 +112,9 @@ router.post("/login", async (req, res) => {
       });
     }
 
-    // Generate a JWT token
-    const token = jwt.sign(
-      {
-        id: user.id,
-        role: user.role,
-      },
-      process.env.JWT_SECRET,
-      { expiresIn: "1h" },
-    );
-
     return res.status(200).json({
       message: "Login successful",
-      token,
+      token: createToken(user),
       user: {
         id: user.id,
         username: user.username,
