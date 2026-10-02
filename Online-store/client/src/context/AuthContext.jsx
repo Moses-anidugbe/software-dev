@@ -17,17 +17,34 @@ function getStoredUser() {
   }
 }
 
+function getStoredToken() {
+  const storedToken = localStorage.getItem("token");
+
+  if (!storedToken) {
+    return null;
+  }
+
+  try {
+    return storedToken;
+  } catch {
+    localStorage.removeItem("token");
+    return null;
+  }
+}
+
 export function AuthProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(
-    Boolean(localStorage.getItem("token")),
+    Boolean(getStoredToken() && getStoredUser()),
   );
   const [user, setUser] = useState(getStoredUser);
+  const [token, setToken] = useState(getStoredToken);
 
   function login({ token, user: authenticatedUser }) {
     localStorage.setItem("token", token);
     localStorage.setItem("user", JSON.stringify(authenticatedUser));
     setIsAuthenticated(true);
     setUser(authenticatedUser);
+    setToken(token);
   }
 
   function logout() {
@@ -35,10 +52,13 @@ export function AuthProvider({ children }) {
     localStorage.removeItem("user");
     setIsAuthenticated(false);
     setUser(null);
+    setToken(null);
   }
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, user, login, logout }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, user, token, login, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );
