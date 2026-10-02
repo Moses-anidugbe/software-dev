@@ -7,6 +7,27 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      DB_USER: postgres
+      DB_HOST: localhost
+      DB_NAME: online_store_test
+      DB_PASSWORD: postgres
+      DB_PORT: 5432
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: online_store_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
       - uses: actions/checkout@v4
@@ -16,6 +37,9 @@ jobs:
       - name: Install dependencies
         working-directory: Online-store/server
         run: npm ci
+      - name: Set up test database
+        working-directory: Online-store/server
+        run: PGPASSWORD=$DB_PASSWORD psql -h $DB_HOST -p $DB_PORT -U $DB_USER -d $DB_NAME -f db/schema.sql
       - name: Run tests
         working-directory: Online-store/server
         run: npm test
