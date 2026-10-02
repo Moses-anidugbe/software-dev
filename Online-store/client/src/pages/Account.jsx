@@ -33,13 +33,14 @@ function Account() {
         setLoading(false);
         setError(null);
       } catch (error) {
+        console.error("Error fetching account details:", error);
         setError("An error occurred while fetching account details");
         setLoading(false);
       }
     }
 
     getAccount();
-  }, [token]);
+  }, [token, logout, navigate]);
   return (
     <div>
       {loading && <p>Loading account details...</p>}

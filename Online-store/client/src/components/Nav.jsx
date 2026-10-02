@@ -1,19 +1,12 @@
 import { useState, useContext, useEffect, useRef } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import AuthContext from "../context/AuthContext.jsx";
 
 function Nav() {
   const [isAccountOpen, setIsAccountOpen] = useState(false);
   const [isHelpOpen, setIsHelpOpen] = useState(false);
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { isAuthenticated, login, logout } = useContext(AuthContext);
+  const { isAuthenticated, logout } = useContext(AuthContext);
   const dropDownMenuRef = useRef(null);
-
-  useEffect(() => {
-    setIsAccountOpen(false);
-    setIsHelpOpen(false);
-  }, [location]);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -55,22 +48,28 @@ function Nav() {
           <div className="account-dropdown" ref={dropDownMenuRef}>
             {isAuthenticated ? (
               <>
-                <button onClick={() => navigate("/account")}>My Account</button>
+                <Link to="/account">
+                  <button onClick={() => setIsAccountOpen(false)}>
+                    My Account
+                  </button>
+                </Link>
+
                 <button>Orders</button>
                 <button
                   onClick={() => {
                     setIsAccountOpen(false);
                     logout();
-                    navigate("/");
                   }}
                 >
                   Log Out
                 </button>
               </>
             ) : (
-              <button onClick={() => navigate("/login")}>
-                Sign In / Sign Up
-              </button>
+              <Link to="/login">
+                <button onClick={() => setIsAccountOpen(false)}>
+                  Sign In / Sign Up
+                </button>
+              </Link>
             )}
           </div>
         )}

@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useCallback } from "react";
 
 const AuthContext = createContext();
 
@@ -47,13 +47,21 @@ export function AuthProvider({ children }) {
     setToken(token);
   }
 
-  function logout() {
+  const logout = useCallback(() => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setIsAuthenticated(false);
     setUser(null);
     setToken(null);
-  }
+  }, []);
+
+  // function logout() {
+  //   localStorage.removeItem("token");
+  //   localStorage.removeItem("user");
+  //   setIsAuthenticated(false);
+  //   setUser(null);
+  //   setToken(null);
+  // }
 
   return (
     <AuthContext.Provider
