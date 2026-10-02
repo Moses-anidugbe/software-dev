@@ -13,6 +13,7 @@ jobs:
       DB_NAME: online_store_test
       DB_PASSWORD: postgres
       DB_PORT: 5432
+      JWT_SECRET: test-only-secret
 
     services:
       postgres:
